@@ -91,10 +91,9 @@ app.post("/add-period", (req, res) => {
     if (err) {
       return res.json({ error: "Error saving period" });
     }
-    res.json({ message: "Period saved successfully" });
+    res.json({ message: "Got it 💗 I've saved your period dates." });
   });
 });
-
 
 /* =========================
    LOG MOOD
@@ -153,7 +152,7 @@ app.post("/log-mood", (req, res) => {
         }
 
         res.json({
-          message: "Mood logged successfully",
+          message: "Got it 💗 I've saved how you're feeling today.",
           cycle_day,
           phase
         });
@@ -163,51 +162,118 @@ app.post("/log-mood", (req, res) => {
 });
 
 /* =========================
-   INSIGHT
+   INSIGHT & PATTERNS
 ========================= */
 app.get("/insight/:user_id", (req, res) => {
   const user_id = req.params.user_id;
 
-  const latestQuery = `
-    SELECT phase 
+  // 1. Get Latest Period Start Date to Calculate Current Phase
+  const periodQuery = `
+    SELECT period_start_date, period_end_date
     FROM daily_logs 
-    WHERE user_id = ?
-    ORDER BY id DESC LIMIT 1
-      `;
+    WHERE user_id = ? AND period_start_date IS NOT NULL
+    ORDER BY date DESC LIMIT 1
+  `;
 
-  db.query(latestQuery, [user_id], (err, result) => {
-    if (err) {
-      return res.json({ error: "Database error" });
+  db.query(periodQuery, [user_id], (err, periodResult) => {
+    if (err) return res.json({ error: "Database error" });
+
+    if (!periodResult || periodResult.length === 0) {
+      return res.json({ error: "Please log your period first to see insights." });
     }
 
-    if (!result || result.length === 0) {
-      return res.json({ error: "No mood data found. Please log mood first." });
+    const { period_start_date, period_end_date } = periodResult[0];
+    const today = new Date();
+    const start = new Date(period_start_date);
+
+    // Calculate current cycle day
+    const diffTime = Math.abs(today - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    let cycle_day = ((diffDays - 1) % 28) + 1;
+
+    // Calculate Menstrual phase length dynamically if end date exists
+    let menstrualLength = 5;
+    if (period_end_date) {
+      const end = new Date(period_end_date);
+      const pDiff = Math.abs(end - start);
+      menstrualLength = Math.ceil(pDiff / (1000 * 60 * 60 * 24)) + 1;
     }
 
-    const currentPhase = result[0].phase;
+    // Determine current phase
+    let currentPhase = "";
+    if (cycle_day <= menstrualLength) currentPhase = "Menstrual";
+    else if (cycle_day <= menstrualLength + 8) currentPhase = "Follicular";
+    else if (cycle_day <= menstrualLength + 11) currentPhase = "Ovulation";
+    else currentPhase = "Luteal";
 
-    const avgQuery = `
-      SELECT AVG(mood_rating) as avg_mood
-      FROM daily_logs
-      WHERE user_id = ? AND phase = ?
+    // 2. Variable Insights based on Phase
+    let suggestedFocus = "";
+    let baseInsight = "";
+
+    switch (currentPhase) {
+      case "Menstrual":
+        suggestedFocus = "Rest & Recharge 🍵";
+        baseInsight = `Day ${cycle_day}: Your energy might be low right now. It's the perfect time to slow down and prioritize self-care.`;
+        break;
+      case "Follicular":
+        suggestedFocus = "Plan & Create ✨";
+        baseInsight = `Day ${cycle_day}: You're likely in a high-energy phase! Great time to start new projects or brainstorm ideas.`;
+        break;
+      case "Ovulation":
+        suggestedFocus = "Socialize & Move 💃";
+        baseInsight = `Day ${cycle_day}: You might feel your most confident and social. Connect with friends or try a challenging workout!`;
+        break;
+      case "Luteal":
+        suggestedFocus = "Organize & Unwind 📚";
+        baseInsight = `Day ${cycle_day}: Hormones are shifting. You might feel more inward. Focus on wrapping up tasks and cozy evenings.`;
+        break;
+      default:
+        suggestedFocus = "Listen to your body 🌿";
+        baseInsight = "Trust your intuition today.";
+    }
+
+    // 3. Pattern Detection (Last 90 days)
+    const historyQuery = `
+      SELECT phase, mood_rating, energy_level 
+      FROM daily_logs 
+      WHERE user_id = ? 
+      ORDER BY date DESC LIMIT 90
     `;
 
-    db.query(avgQuery, [user_id, currentPhase], (err, avgResult) => {
-      if (err) {
-        return res.json({ error: "Database error" });
+    db.query(historyQuery, [user_id], (err, history) => {
+      if (err) return res.json({ error: "Database error" });
+
+      const patterns = [];
+      const phaseStats = {};
+
+      // Aggregate data
+      history.forEach((log) => {
+        if (!phaseStats[log.phase]) {
+          phaseStats[log.phase] = { moodSum: 0, energySum: 0, count: 0 };
+        }
+        phaseStats[log.phase].moodSum += log.mood_rating;
+        phaseStats[log.phase].energySum += log.energy_level;
+        phaseStats[log.phase].count += 1;
+      });
+
+      // Analyze
+      for (const [phase, stats] of Object.entries(phaseStats)) {
+        const avgMood = stats.moodSum / stats.count;
+        const avgEnergy = stats.energySum / stats.count;
+
+        if (avgMood < 4 && stats.count > 2) {
+          patterns.push(`You tend to feel emotionally sensitive during your ${phase} phase.`);
+        }
+        if (avgEnergy > 6 && stats.count > 2) {
+          patterns.push(`Your energy tends to peak during your ${phase} phase!`);
+        }
       }
-
-      const avgMood = avgResult[0].avg_mood || 0;
-
-      const message =
-        avgMood < 3
-          ? `You are in ${currentPhase} phase.This phase shows recurring lower emotional energy.`
-          : `You are in ${currentPhase} phase.Your emotional pattern is generally stable.`;
 
       res.json({
         current_phase: currentPhase,
-        average_mood: avgMood,
-        insight: message
+        insight: baseInsight,
+        suggested_focus: suggestedFocus,
+        patterns: patterns
       });
     });
   });
