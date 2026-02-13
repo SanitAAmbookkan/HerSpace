@@ -75,7 +75,7 @@ app.post("/login", (req, res) => {
    ADD PERIOD
 ========================= */
 app.post("/add-period", (req, res) => {
-  const { user_id, period_start_date } = req.body;
+  const { user_id, period_start_date, period_end_date } = req.body;
 
   if (!user_id) {
     return res.json({ error: "Please login first" });
@@ -83,17 +83,18 @@ app.post("/add-period", (req, res) => {
 
   const sql = `
     INSERT INTO daily_logs
-    (user_id, date, period_start_date, cycle_day, phase)
-    VALUES (?, CURDATE(), ?, 1, 'Menstrual')
+    (user_id, date, period_start_date, period_end_date, cycle_day, phase)
+    VALUES (?, ?, ?, ?, 1, 'Menstrual')
   `;
 
-  db.query(sql, [user_id, period_start_date], (err) => {
+  db.query(sql, [user_id, period_start_date, period_start_date, period_end_date], (err) => {
     if (err) {
       return res.json({ error: "Error saving period" });
     }
-    res.json({ message: "Period start saved successfully" });
+    res.json({ message: "Period saved successfully" });
   });
 });
+
 
 /* =========================
    LOG MOOD
@@ -110,7 +111,7 @@ app.post("/log-mood", (req, res) => {
     FROM daily_logs 
     WHERE user_id = ? AND period_start_date IS NOT NULL
     ORDER BY id DESC LIMIT 1
-  `;
+    `;
 
   db.query(getPeriodQuery, [user_id], (err, result) => {
     if (err) {
@@ -139,8 +140,8 @@ app.post("/log-mood", (req, res) => {
 
     const insertQuery = `
       INSERT INTO daily_logs
-      (user_id, date, cycle_day, phase, mood_rating, energy_level)
-      VALUES (?, CURDATE(), ?, ?, ?, ?)
+    (user_id, date, cycle_day, phase, mood_rating, energy_level)
+  VALUES(?, CURDATE(), ?, ?, ?, ?)
     `;
 
     db.query(
@@ -172,7 +173,7 @@ app.get("/insight/:user_id", (req, res) => {
     FROM daily_logs 
     WHERE user_id = ?
     ORDER BY id DESC LIMIT 1
-  `;
+      `;
 
   db.query(latestQuery, [user_id], (err, result) => {
     if (err) {
@@ -200,8 +201,8 @@ app.get("/insight/:user_id", (req, res) => {
 
       const message =
         avgMood < 3
-          ? `You are in ${currentPhase} phase. This phase shows recurring lower emotional energy.`
-          : `You are in ${currentPhase} phase. Your emotional pattern is generally stable.`;
+          ? `You are in ${currentPhase} phase.This phase shows recurring lower emotional energy.`
+          : `You are in ${currentPhase} phase.Your emotional pattern is generally stable.`;
 
       res.json({
         current_phase: currentPhase,
@@ -247,10 +248,19 @@ app.post("/chat", (req, res) => {
 
     const phase = result[0].phase;
 
+    const motivationalQuotes = [
+      "You are stronger than you think.",
+      "Take it one step at a time.",
+      "This feeling is temporary.",
+      "Be gentle with yourself today.",
+      "You've got this!"
+    ];
+    const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+
     const reply =
       phase === "Luteal"
-        ? `You are in ${phase} phase. Hormonal shifts may increase sensitivity. Feeling ${emotion} is common now.`
-        : `You are in ${phase} phase. Feeling ${emotion} may relate to external factors.`;
+        ? `You are in ${phase} phase. Hormonal shifts may increase sensitivity. Feeling ${emotion} is common now. ${randomQuote}`
+        : `You are in ${phase} phase. Feeling ${emotion} may relate to external factors. ${randomQuote}`;
 
     res.json({
       detected_emotion: emotion,
@@ -267,10 +277,10 @@ app.get("/calendar/:user_id", (req, res) => {
   const user_id = req.params.user_id;
 
   const sql = `
-    SELECT date, phase, mood_rating, energy_level
+    SELECT date, phase, mood_rating, energy_level, period_start_date, period_end_date, cycle_day
     FROM daily_logs
     WHERE user_id = ?
-  `;
+    `;
 
   db.query(sql, [user_id], (err, results) => {
     if (err) {
@@ -286,4 +296,21 @@ app.get("/calendar/:user_id", (req, res) => {
 ========================= */
 app.listen(5000, () => {
   console.log("Server running on port 5000");
+
+  // Check and add period_end_date column if missing
+  const checkColumnSql = `
+    SELECT count(*) as count 
+    FROM information_schema.columns 
+    WHERE table_name = 'daily_logs' 
+    AND column_name = 'period_end_date'
+  `;
+
+  db.query(checkColumnSql, (err, result) => {
+    if (!err && result[0].count === 0) {
+      db.query("ALTER TABLE daily_logs ADD COLUMN period_end_date DATE", (alterErr) => {
+        if (alterErr) console.error("Error adding period_end_date column:", alterErr);
+        else console.log("Added period_end_date column to daily_logs");
+      });
+    }
+  });
 });
