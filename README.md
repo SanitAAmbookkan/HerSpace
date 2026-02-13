@@ -2,15 +2,15 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+# HerSpace 🎯
 
 ## Basic Details
 
-### Team Name: [Name]
+### Team Name: Echo
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: Sanit A Ambookkan - Christ College of Engineering
+- Member 2: Maria Mejo - Christ College of Engineering 
 
 ### Hosted Project Link
 [mention your project hosted link here]
@@ -36,12 +36,6 @@
 - Libraries used: [e.g., axios, pandas, JUnit]
 - Tools used: [e.g., VS Code, Git, Docker]
 
-**For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
-
----
 
 ## Features
 
@@ -67,15 +61,6 @@ List the key features of your project:
 [Run commands - e.g., npm start, python app.py]
 ```
 
-### For Hardware:
-
-#### Components Required
-[List all components needed with specifications]
-
-#### Circuit Setup
-[Explain how to set up the circuit]
-
----
 
 ## Project Documentation
 
@@ -106,15 +91,6 @@ List the key features of your project:
 
 ---
 
-### For Hardware:
-
-#### Schematic & Circuit
-
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
 
 #### Build Photos
 
