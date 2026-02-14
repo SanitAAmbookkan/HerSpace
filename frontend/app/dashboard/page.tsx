@@ -51,7 +51,7 @@ export default function DashboardPage() {
 
             {/* Daily Insight Section */}
             {insight && (
-                <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6 animate-in slide-in-from-bottom-6 duration-700">
+                <div className="mb-12 grid grid-cols-1 md:grid-cols-3 gap-6 animate-in slide-in-from-bottom-6 duration-700">
                     <NeumorphicBox className="p-8 border-l-4 border-pink-300">
                         <h3 className="text-lg font-semibold text-pink-400 uppercase tracking-wider mb-2">Current Phase</h3>
                         <p className="text-3xl font-bold text-gray-700 mb-4">{insight.current_phase}</p>
@@ -73,6 +73,12 @@ export default function DashboardPage() {
                                 </ul>
                             </div>
                         )}
+                    </NeumorphicBox>
+
+                    <NeumorphicBox className="p-8 border-l-4 border-teal-300">
+                        <h3 className="text-lg font-semibold text-teal-400 uppercase tracking-wider mb-2">Recommended Activity</h3>
+                        <p className="text-2xl font-bold text-gray-700 mb-2">{insight.activity_suggestion || "Log mood to see!"}</p>
+                        <p className="text-gray-500 text-sm">Based on your latest energy & mood.</p>
                     </NeumorphicBox>
                 </div>
             )}
