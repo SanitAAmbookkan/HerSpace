@@ -15,8 +15,7 @@
 ---
 
 ### 🌐 Hosted Project Link
-👉 *[Add your deployed Vercel link here]*  
-
+👉 https://her-space-xi.vercel.app/
 ---
 
 ## 📌 Project Description
@@ -167,7 +166,7 @@ The backend handles business logic and securely interacts with the MySQL databas
 # 🎥 Project Demo
 
 ### Video
-👉 *[Add your demo video link here]*  
+👉 https://drive.google.com/drive/u/0/folders/1frWF4YKUNJKsecPL95iWMvBSdzUVLIYJ  
 
 The demo showcases:
 - Logging mood and energy  
