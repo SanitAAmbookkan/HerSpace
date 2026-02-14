@@ -137,7 +137,7 @@ PORT=5000
 
 # 📸 Screenshots
 
-![Dashboard](./screenshots/Dashboard.png)
+![Dashboard](./screenshots/Dahboard.png)
 Dashboard displaying mood, energy, and period insights
 
 ![Mood Entry](./screenshots/MoodEntry.png)
