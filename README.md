@@ -137,13 +137,13 @@ PORT=5000
 
 # 📸 Screenshots
 
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](./screenshots/Dashboard.png)
 Dashboard displaying mood, energy, and period insights
 
-![Mood Entry](./screenshots/mood-entry.png)
+![Mood Entry](./screenshots/MoodEntry.png)
 Mood and energy logging interface
 
-![Period Tracker](./screenshots/period-tracker.png)
+![Period Tracker](./screenshots/PeriodsTracker.png)
 Period tracking calendar view
 
 ---
