@@ -1,395 +1,220 @@
 <p align="center">
-  <img src="./img.png" alt="Project Banner" width="100%">
+  <img src="./img.png" alt="HerSpace Banner" width="100%">
 </p>
 
-# HerSpace 🎯
+# 🌸 HerSpace 🎯
 
 ## Basic Details
 
 ### Team Name: Echo
 
 ### Team Members
-- Member 1: Sanit A Ambookkan - Christ College of Engineering
-- Member 2: Maria Mejo - Christ College of Engineering 
-
-### Hosted Project Link
-[mention your project hosted link here]
-
-### Project Description
-[2-3 lines about what your project does]
-
-### The Problem statement
-[What problem are you solving?]
-
-### The Solution
-[How are you solving it?]
+- **Maria Mejo** – Christ College of Engineering  
+- **Sanit A Ambookkan** – Christ College of Engineering  
 
 ---
 
-## Technical Details
-
-### Technologies/Components Used
-
-**For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
-
-
-## Features
-
-List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+### 🌐 Hosted Project Link
+👉 *[Add your deployed Vercel link here]*  
 
 ---
 
-## Implementation
+## 📌 Project Description
 
-### For Software:
-
-#### Installation
-```bash
-[Installation commands - e.g., npm install, pip install -r requirements.txt]
-```
-
-#### Run
-```bash
-[Run commands - e.g., npm start, python app.py]
-```
-
-
-## Project Documentation
-
-### For Software:
-
-#### Screenshots (Add at least 3)
-
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
-
-#### Diagrams
-
-**System Architecture:**
-
-![Architecture Diagram](docs/architecture.png)
-*Explain your system architecture - components, data flow, tech stack interaction*
-
-**Application Workflow:**
-
-![Workflow](docs/workflow.png)
-*Add caption explaining your workflow*
+HerSpace is a women-centric wellness web application designed to help users track their menstrual cycle, mood levels, and energy levels. The platform provides intelligent suggestions and visual insights to promote emotional awareness and better daily planning.
 
 ---
 
+## ❗ The Problem Statement
 
-#### Build Photos
-
-![Team](Add photo of your team here)
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
+Many women experience fluctuations in mood and energy during their menstrual cycle but lack a structured digital solution to track patterns and understand how their cycle affects productivity and well-being.
 
 ---
 
-## Additional Documentation
+## 💡 The Solution
 
-### For Web Projects with Backend:
+HerSpace offers:
 
-#### API Documentation
+- Period tracking  
+- Mood and energy level logging  
+- Smart activity suggestions based on emotional and physical state  
+- Dashboard analytics for pattern recognition  
 
-**Base URL:** `https://api.yourproject.com`
-
-##### Endpoints
-
-**GET /api/endpoint**
-- **Description:** [What it does]
-- **Parameters:**
-  - `param1` (string): [Description]
-  - `param2` (integer): [Description]
-- **Response:**
-```json
-{
-  "status": "success",
-  "data": {}
-}
-```
-
-**POST /api/endpoint**
-- **Description:** [What it does]
-- **Request Body:**
-```json
-{
-  "field1": "value1",
-  "field2": "value2"
-}
-```
-- **Response:**
-```json
-{
-  "status": "success",
-  "message": "Operation completed"
-}
-```
-
-[Add more endpoints as needed...]
+By combining tracking with intelligent feedback, HerSpace empowers users to better understand and manage their well-being.
 
 ---
 
-### For Mobile Apps:
+# 🛠 Technical Details
 
-#### App Flow Diagram
+## Technologies / Components Used
 
-![App Flow](docs/app-flow.png)
-*Explain the user flow through your application*
+### 💻 Languages
+- JavaScript
+- TypeScript
+- SQL
 
-#### Installation Guide
+### ⚙️ Frameworks
+- Next.js
+- Node.js
+- Express.js
 
-**For Android (APK):**
-1. Download the APK from [Release Link]
-2. Enable "Install from Unknown Sources" in your device settings:
-   - Go to Settings > Security
-   - Enable "Unknown Sources"
-3. Open the downloaded APK file
-4. Follow the installation prompts
-5. Open the app and enjoy!
+### 📚 Libraries
+- MySQL2
 
-**For iOS (IPA) - TestFlight:**
-1. Download TestFlight from the App Store
-2. Open this TestFlight link: [Your TestFlight Link]
-3. Click "Install" or "Accept"
-4. Wait for the app to install
-5. Open the app from your home screen
+### 🧰 Tools
+- VS Code
+- Git & GitHub
 
-**Building from Source:**
-```bash
-# For Android
-flutter build apk
-# or
-./gradlew assembleDebug
+# ✨ Features
 
-# For iOS
-flutter build ios
-# or
-xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug
-```
+- 📅 Period tracking system  
+- 😊 Mood level logging  
+- ⚡ Energy level tracking  
+- 🧠 Smart suggestions based on mood + energy combination  
+- 📊 Dashboard insights and data visualization  
+- 🔐 Backend API integration with MySQL database  
 
 ---
 
-### For Hardware Projects:
+# 🚀 Implementation
 
-#### Bill of Materials (BOM)
-
-| Component | Quantity | Specifications | Price | Link/Source |
-|-----------|----------|----------------|-------|-------------|
-| Arduino Uno | 1 | ATmega328P, 16MHz | ₹450 | [Link] |
-| LED | 5 | Red, 5mm, 20mA | ₹5 each | [Link] |
-| Resistor | 5 | 220Ω, 1/4W | ₹1 each | [Link] |
-| Breadboard | 1 | 830 points | ₹100 | [Link] |
-| Jumper Wires | 20 | Male-to-Male | ₹50 | [Link] |
-| [Add more...] | | | | |
-
-**Total Estimated Cost:** ₹[Amount]
-
-#### Assembly Instructions
-
-**Step 1: Prepare Components**
-1. Gather all components listed in the BOM
-2. Check component specifications
-3. Prepare your workspace
-![Step 1](images/assembly-step1.jpg)
-*Caption: All components laid out*
-
-**Step 2: Build the Power Supply**
-1. Connect the power rails on the breadboard
-2. Connect Arduino 5V to breadboard positive rail
-3. Connect Arduino GND to breadboard negative rail
-![Step 2](images/assembly-step2.jpg)
-*Caption: Power connections completed*
-
-**Step 3: Add Components**
-1. Place LEDs on breadboard
-2. Connect resistors in series with LEDs
-3. Connect LED cathodes to GND
-4. Connect LED anodes to Arduino digital pins (2-6)
-![Step 3](images/assembly-step3.jpg)
-*Caption: LED circuit assembled*
-
-**Step 4: [Continue for all steps...]**
-
-**Final Assembly:**
-![Final Build](images/final-build.jpg)
-*Caption: Completed project ready for testing*
-
----
-
-### For Scripts/CLI Tools:
-
-#### Command Reference
-
-**Basic Usage:**
-```bash
-python script.py [options] [arguments]
-```
-
-**Available Commands:**
-- `command1 [args]` - Description of what command1 does
-- `command2 [args]` - Description of what command2 does
-- `command3 [args]` - Description of what command3 does
-
-**Options:**
-- `-h, --help` - Show help message and exit
-- `-v, --verbose` - Enable verbose output
-- `-o, --output FILE` - Specify output file path
-- `-c, --config FILE` - Specify configuration file
-- `--version` - Show version information
-
-**Examples:**
+## Installation
 
 ```bash
-# Example 1: Basic usage
-python script.py input.txt
-
-# Example 2: With verbose output
-python script.py -v input.txt
-
-# Example 3: Specify output file
-python script.py -o output.txt input.txt
-
-# Example 4: Using configuration
-python script.py -c config.json --verbose input.txt
+git clone https://github.com/your-username/HerSpace.git
+cd HerSpace
 ```
 
-#### Demo Output
+### Backend Setup
 
-**Example 1: Basic Processing**
-
-**Input:**
-```
-This is a sample input file
-with multiple lines of text
-for demonstration purposes
-```
-
-**Command:**
 ```bash
-python script.py sample.txt
+cd backend
+npm install
 ```
 
-**Output:**
-```
-Processing: sample.txt
-Lines processed: 3
-Characters counted: 86
-Status: Success
-Output saved to: output.txt
-```
+### Frontend Setup
 
-**Example 2: Advanced Usage**
-
-**Input:**
-```json
-{
-  "name": "test",
-  "value": 123
-}
-```
-
-**Command:**
 ```bash
-python script.py -v --format json data.json
-```
-
-**Output:**
-```
-[VERBOSE] Loading configuration...
-[VERBOSE] Parsing JSON input...
-[VERBOSE] Processing data...
-{
-  "status": "success",
-  "processed": true,
-  "result": {
-    "name": "test",
-    "value": 123,
-    "timestamp": "2024-02-07T10:30:00"
-  }
-}
-[VERBOSE] Operation completed in 0.23s
+cd frontend
+npm install
 ```
 
 ---
 
-## Project Demo
+## Run
+
+### Start Backend
+
+```bash
+npm start
+```
+
+### Start Frontend
+
+```bash
+npm run dev
+```
+
+---
+
+## 🗄 Database Setup
+
+Run the SQL file located at:
+
+backend/database/schema.sql
+
+Create a `.env` file inside the backend folder:
+
+```
+DB_HOST=your_host
+DB_USER=your_user
+DB_PASSWORD=your_password
+DB_NAME=your_database
+PORT=5000
+```
+
+---
+
+# 📸 Screenshots
+
+![Dashboard](./screenshots/dashboard.png)
+Dashboard displaying mood, energy, and period insights
+
+![Mood Entry](./screenshots/mood-entry.png)
+Mood and energy logging interface
+
+![Period Tracker](./screenshots/period-tracker.png)
+Period tracking calendar view
+
+---
+
+# 🏗 System Architecture
+
+User  
+↓  
+Frontend (Next.js – Vercel)  
+↓  
+Backend API (Node.js + Express – Render)  
+↓  
+MySQL Database (Railway)
+
+The frontend communicates with the backend through REST APIs.  
+The backend handles business logic and securely interacts with the MySQL database.
+
+---
+
+
+# 🎥 Project Demo
 
 ### Video
-[Add your demo video link here - YouTube, Google Drive, etc.]
+👉 *[Add your demo video link here]*  
 
-*Explain what the video demonstrates - key features, user flow, technical highlights*
-
-### Additional Demos
-[Add any extra demo materials/links - Live site, APK download, online demo, etc.]
-
----
-
-## AI Tools Used (Optional - For Transparency Bonus)
-
-If you used AI tools during development, document them here for transparency:
-
-**Tool Used:** [e.g., GitHub Copilot, v0.dev, Cursor, ChatGPT, Claude]
-
-**Purpose:** [What you used it for]
-- Example: "Generated boilerplate React components"
-- Example: "Debugging assistance for async functions"
-- Example: "Code review and optimization suggestions"
-
-**Key Prompts Used:**
-- "Create a REST API endpoint for user authentication"
-- "Debug this async function that's causing race conditions"
-- "Optimize this database query for better performance"
-
-**Percentage of AI-generated code:** [Approximately X%]
-
-**Human Contributions:**
-- Architecture design and planning
-- Custom business logic implementation
-- Integration and testing
-- UI/UX design decisions
-
-*Note: Proper documentation of AI usage demonstrates transparency and earns bonus points in evaluation!*
+The demo showcases:
+- Logging mood and energy  
+- Viewing dashboard insights  
+- Period tracking functionality  
+- Backend data persistence  
 
 ---
 
-## Team Contributions
+# 🤖 AI Tools Used (Transparency)
 
-- [Name 1]: [Specific contributions - e.g., Frontend development, API integration, etc.]
-- [Name 2]: [Specific contributions - e.g., Backend development, Database design, etc.]
-- [Name 3]: [Specific contributions - e.g., UI/UX design, Testing, Documentation, etc.]
+Tool Used: ChatGPT  
+
+Purpose:
+- Backend debugging  
+- Suggestion logic structuring  
+- Deployment guidance  
+- Documentation refinement  
+
+Estimated AI assistance: ~30–40%  
+
+Human Contributions:
+- System architecture design  
+- Backend implementation  
+- Frontend UI/UX design  
+- Feature logic development  
+- Integration and testing  
 
 ---
 
-## License
+# 👩‍💻 Team Contributions
 
-This project is licensed under the [LICENSE_NAME] License - see the [LICENSE](LICENSE) file for details.
+Maria Mejo
+- Backend development  
+- API creation  
+- Database integration  
 
-**Common License Options:**
-- MIT License (Permissive, widely used)
-- Apache 2.0 (Permissive with patent grant)
-- GPL v3 (Copyleft, requires derivative works to be open source)
+Sanit A Ambookkan
+- Frontend development  
+- UI/UX design  
+- Mood & energy logic implementation  
+- Documentation  
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
 
 ---
 
