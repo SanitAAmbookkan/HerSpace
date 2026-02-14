@@ -146,16 +146,6 @@ Mood and energy logging interface
 ![Period Tracker](./screenshots/PeriodsTracker.png)
 Period tracking calendar view
 
-<p align="center">
-  <img src="./screenshots/dashboard.png" width="800">
-</p>
-<p align="center">
-  <img src="./screenshots/MoodEntry.png" width="800">
-</p>
-<p align="center">
-  <img src="./screenshots/PeriodsTracker.png" width="800">
-</p>
-
 ---
 
 # 🏗 System Architecture
