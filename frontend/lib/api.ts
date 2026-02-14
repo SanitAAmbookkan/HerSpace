@@ -1,4 +1,4 @@
-export const API_BASE = '/api';
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 export const fetcher = async (url: string, options: RequestInit = {}) => {
     try {
