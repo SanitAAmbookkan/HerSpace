@@ -12,11 +12,21 @@ app.use(express.json());
 ========================= */
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
-console.log("Supabase Client Initialized");
+if (!supabaseUrl || !supabaseKey) {
+  console.error("🚨 CRITICAL: Missing SUPABASE_URL or SUPABASE_KEY environment variables.");
+}
+
+const supabase = (supabaseUrl && supabaseKey)
+  ? createClient(supabaseUrl, supabaseKey)
+  : null;
+
+if (supabase) {
+  console.log("Supabase Client Initialized");
+}
 
 async function checkDb() {
+  if (!supabase) return;
   try {
     const { data, error } = await supabase.from('users').select('id').limit(1);
     if (error) {
@@ -25,7 +35,7 @@ async function checkDb() {
       console.log("✅ Database connection verified. 'users' table found.");
     }
   } catch (e) {
-    console.error("🚨 CRITICAL: Could not connect to Supabase. Check your .env credentials.");
+    console.error("🚨 ERROR: Could not query Supabase.", e.message);
   }
 }
 checkDb();
@@ -44,12 +54,17 @@ app.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    if (!supabase) {
+      return res.status(500).json({ error: "Supabase client not initialized. Please add SUPABASE_URL and SUPABASE_KEY to Vercel environment variables." });
+    }
+
     // Check if exists
     const { data: existingUser, error: checkError } = await supabase
       .from("users")
       .select("*")
       .eq("email", email)
-      .single();
+      .limit(1)
+      .maybeSingle();
 
     if (existingUser) return res.json({ error: "Email already exists" });
 
@@ -73,12 +88,16 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!supabase) {
+      return res.status(500).json({ error: "Supabase client not initialized." });
+    }
+
     const { data, error } = await supabase
       .from("users")
       .select("*")
       .eq("email", email)
       .eq("password", password)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       console.warn("Login Failed: Invalid credentials for", email);
@@ -98,6 +117,10 @@ app.post("/login", async (req, res) => {
 app.post("/log-mood", async (req, res) => {
   try {
     let { user_id, mood_rating, energy_level, period_start_date } = req.body;
+
+    if (!supabase) {
+      return res.status(500).json({ error: "Supabase client not initialized. Check environment variables." });
+    }
 
     // Validate User ID
     const parsedId = parseInt(user_id);
@@ -172,6 +195,10 @@ app.post("/add-period", async (req, res) => {
   try {
     let { user_id, period_start_date, period_end_date } = req.body;
 
+    if (!supabase) {
+      return res.status(500).json({ error: "Supabase client not initialized. Check environment variables." });
+    }
+
     const parsedId = parseInt(user_id);
     if (!user_id || user_id === "undefined" || isNaN(parsedId)) {
       return res.json({ error: "Please login first (Invalid Session)" });
@@ -210,6 +237,11 @@ app.post("/add-period", async (req, res) => {
 app.get("/calendar/:user_id", async (req, res) => {
   try {
     const user_id = req.params.user_id;
+
+    if (!supabase) {
+      return res.status(500).json({ error: "Supabase client not initialized." });
+    }
+
     const parsedId = parseInt(user_id);
     if (!user_id || user_id === "undefined" || isNaN(parsedId)) {
       return res.json({ error: "Invalid User ID" });
@@ -235,6 +267,11 @@ app.get("/calendar/:user_id", async (req, res) => {
 app.get("/insight/:user_id", async (req, res) => {
   try {
     const user_id = req.params.user_id;
+
+    if (!supabase) {
+      return res.status(500).json({ error: "Supabase client not initialized." });
+    }
+
     const parsedId = parseInt(user_id);
     if (!user_id || user_id === "undefined" || isNaN(parsedId)) {
       return res.json({ error: "Invalid User ID" });
@@ -368,6 +405,10 @@ app.post("/chat", async (req, res) => {
   try {
     let { user_id, message } = req.body;
 
+    if (!supabase) {
+      return res.status(500).json({ error: "Supabase client not initialized." });
+    }
+
     const parsedId = parseInt(user_id);
     if (!user_id || user_id === "undefined" || isNaN(parsedId)) {
       return res.json({ error: "Please login first (Invalid Session)" });
@@ -459,9 +500,13 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+
+// Only listen locally, Vercel will handle this in production
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 module.exports = app;
