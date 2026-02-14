@@ -37,7 +37,7 @@ export default function LoginPage() {
         });
         if (res.error) throw new Error(res.error);
 
-        localStorage.setItem('user_id', res.user_id);
+        localStorage.setItem('user_id', res.id);
         router.push('/dashboard');
       }
     } catch (err: any) {
